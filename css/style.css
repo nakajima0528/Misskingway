@@ -126,6 +126,8 @@ img {
 	line-height: 1.5;
 	font-weight: 900;
 	margin: 0 auto;
+	padding-bottom: 1.5rem;
+	border-bottom: 3px solid #0e3e92;
 }
 .mainte img {
 	width: 17rem;
@@ -139,9 +141,11 @@ img {
 }
 .mainte .mainte_text .error_lepo img {
 	width: 190px;
+	margin: 20px auto;
 }
 .mainte .mainte_text .error_lepo p {
 	font-size: 1.2rem;
+	border-bottom: 0;
 }
 
 @media screen and (max-width: 600px){
