@@ -140,7 +140,7 @@ img {
 	text-align: center;
 }
 .mainte .mainte_text .error_lepo img {
-	width: 190px;
+	width: 320px;
 	margin: 20px auto;
 }
 .mainte .mainte_text .error_lepo p {
@@ -177,8 +177,8 @@ img {
 		text-align: center;
 	}
 	.error_lepo img {
-    width: 180px;
-    margin: 19px auto;
+    	width: 180px;
+    	margin: 19px auto;
 	}	
 	
 }
