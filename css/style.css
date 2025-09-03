@@ -145,6 +145,7 @@ a:hover {
 .admin-message-box > header, .admin-message-box > .message {
     font-family: var(--mw-font-family);
     padding: 0.5rem;
+    text-wrap-mode: wrap;
 }
 
 .maintenance.container footer {
