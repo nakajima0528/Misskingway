@@ -2,25 +2,96 @@
 <html lang="ja">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Misskingwayはメンテナンス中です</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="https://s3.invillage-outvillage.com/misskey/fec65b18-9afc-4171-a611-79234a33d728.png" id="favicon">
-	<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>メンテナンス中 - Misskingway</title>
+  <meta name="description" content="Misskingwayはメンテナンス中です。終了までしばらくお待ち下さい。" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="https://s3.invillage-outvillage.com/misskey/fec65b18-9afc-4171-a611-79234a33d728.png"
+    id="favicon" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-	<header></header>
-	<div class="wrap">
-		<div class="mainte">
-			<h2 class="gomeiwaku">工事中<br><span>ご迷惑をおかけしております</span></h2>
-			<div class="mainte_text">
-				<p><a href="https://invillage-outvillage.com/"><img src="images/misskingway_logo.png" alt="Misskingway"></a>は<br>現在メンテナンス中です</p>
-				<div class="error_lepo">
-					<img src="images/maintenance.png" alt="「ご迷惑をおかけしております。ご協力をお願い致します。」" title="メンテ中だよ">
-				</div>				
-			</div>
-		</div>
-	</div>
+  <div class="maintenance container text-center">
+    <div class="banner">
+      <header>
+        <h1 class="text-spacing">
+          <span class="block text-xl">工事中</span>
+          <span class="block text-large">ご迷惑をおかけしております</span>
+        </h1>
+      </header>
+      <main class="main">
+        <p class="main-message text-spacing text-bold">
+          <span class="block">
+            <a href="https://invillage-outvillage.com/">
+              <img src="images/misskingway_logo.png" alt="Misskingway" width="242.625" height="48" class="inline-block">
+            </a>は
+          </span>
+          <span class="block">
+            現在メンテナンス中です
+          </span>
+        </p>
+        <div>
+          <img src="images/maintenance.png" alt="「ご迷惑をおかけしております。ご協力をお願い致します。」" title="ぺこり" width="320" height="320" class="messaging-image" />
+        </div>
+        <div id="admin-message-box" class="admin-message-box" hidden>
+          <header class="text-bold">
+            管理部からのメッセージ
+          </header>
+          <pre id="admin-message-body" class="message"></pre>
+        </div>
+        <div>
+          <button id="misskingway-reload-button" onclick="reloadMisskingway();" disabled>再読み込み</button>
+          <div id="misskingway-status" class="status"></div>
+        </div>
+        <p>
+          詳しくは<a href="https://wiki.invillage-outvillage.com/" class="text-bold">Misskingway Wiki</a>をご覧ください
+        </p>
+      </main>
+    </div>
+    <footer>
+      <a href="https://invillage-outvillage.com/">Misskingway</a>
+    </footer>
+  </div>
+  <script>
+    function reloadMisskingway() {
+      if (window.location.host == "invillage-outvillage.com") {
+        window.location.reload(true);
+      } else {
+        window.location.href = "https://invillage-outvillage.com/";
+      }
+    }
+    async function isMisskingwayOnline() {
+      const apiStatus = await fetch("https://invillage-outvillage.com/api/get-online-users-count")
+        .then(r => r.json())
+        .catch(e => false);
+      return !!apiStatus;
+    }
+    async function updateStatus() {
+      const isOnline = await isMisskingwayOnline();
+      const button = document.getElementById("misskingway-reload-button");
+      const status = document.getElementById("misskingway-status");
+      button.disabled = !isOnline;
+      status.className = `status ${isOnline ? "green" : "red"}`;
+      status.title = isOnline ? "オンライン" : "オフライン";
+      return isOnline
+    }
+    async function updateAdminMessage() {
+      const message = await fetch("/data/message.txt")
+        .then(r => r.text())
+        .catch(e => "[エラーが発生しました]");
+      const box = document.getElementById("admin-message-box");
+      const messageTag = document.getElementById("admin-message-body");
+      const isEmpty = message.length === 0;
+      box.hidden = isEmpty;
+      messageTag.innerText = message;
+    }
+    async function update() {
+      const [o, m] = await Promise.all([updateStatus(), updateAdminMessage()]);
+      setTimeout(update, o ? 60000 : 15000);
+    }
+    update();
+  </script>
 </body>
+
 </html>
