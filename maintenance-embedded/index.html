@@ -206,7 +206,7 @@ alt="「ご迷惑をおかけしております。ご協力をお願い致しま
       return isOnline
     }
     async function updateAdminMessage() {
-      const message = await fetch("https://raw.githubusercontent.com/nakajima0528/Misskingway/refs/heads/Misskingway/data/message.txt")
+      const message = await fetch("https://raw.githubusercontent.com/nakajima0528/Misskingway/refs/heads/admin-message/data/message.txt")
         .then(r => r.text())
         .catch(e => "[エラーが発生しました]");
       const box = document.getElementById("admin-message-box");

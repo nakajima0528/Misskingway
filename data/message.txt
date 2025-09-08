@@ -1,1 +1,3 @@
-メンテナンスが終了したら下のボタンの右側にある丸が緑色に変わります。
+このテキストファイルは参照されません。
+管理部からのメッセージを変更したい場合はadmin-messageブランチのdata/message.txt、または次のURLから編集してください。
+https://github.com/nakajima0528/Misskingway/blob/admin-message/data/message.txt
